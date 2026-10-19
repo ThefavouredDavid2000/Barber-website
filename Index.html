@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LEGIT Barber – Book Now</title>
+<style>
+  :root {
+    --bg: #eef3fb;
+    --card: #ffffff;
+    --text: #0f1a2e;
+    --muted: #5b6b85;
+    --line: #d5deee;
+    --blue: #1f6bff;
+    --blue-dark: #1553cc;
+    --error: #d93025;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    background:
+      linear-gradient(rgba(10, 20, 40, 0.55), rgba(10, 20, 40, 0.55)),
+      url("https://i.ibb.co/JWwjcHwh/images-3.jpg") center / cover no-repeat fixed;
+    background-color: var(--bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 50px rgba(20, 50, 110, 0.15);
+  }
+  h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    letter-spacing: 0.12em;
+    font-weight: 800;
+    text-align: center;
+  }
+  .sub {
+    text-align: center;
+    color: var(--muted);
+    margin: 6px 0 28px;
+    font-size: 0.95rem;
+  }
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text);
+    background: #fff;
+    margin-bottom: 18px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(31, 107, 255, 0.2);
+  }
+  input.invalid { border-color: var(--error); }
+  .error {
+    color: var(--error);
+    font-size: 0.85rem;
+    min-height: 1.1em;
+    margin: -8px 0 12px;
+  }
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--blue);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  button:hover { background: var(--blue-dark); }
+  button:active { transform: scale(0.98); }
+  button:focus-visible { outline: 3px solid rgba(31, 107, 255, 0.4); outline-offset: 2px; }
+  .thanks { text-align: center; display: none; padding: 20px 0; }
+  .thanks .tick {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 2rem;
+    line-height: 64px;
+  }
+  .thanks h2 { margin: 0 0 8px; font-size: 1.6rem; }
+  .thanks p { margin: 0; color: var(--muted); }
+  .card.done form { display: none; }
+  .card.done .thanks { display: block; }
+  .card.done h1, .card.done .sub { display: none; }
+</style>
+</head>
+<body>
+
+  <main class="card" id="card">
+    <h1>LEGIT</h1>
+    <p class="sub">Book your barber appointment</p>
+
+    <form id="bookingForm" novalidate>
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+
+      <label for="phone">Phone number</label>
+      <input type="tel" id="phone" placeholder="(555) 123-4567" autocomplete="tel">
+
+      <div class="error" id="error" role="alert"></div>
+
+      <button type="submit">Book Now</button>
+    </form>
+
+    <div class="thanks" aria-live="polite">
+      <div class="tick">&#10003;</div>
+      <h2>Thank you</h2>
+      <p>We’ll be in touch shortly to confirm your booking.</p>
+    </div>
+  </main>
+
+<script>
+  const form = document.getElementById("bookingForm");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const error = document.getElementById("error");
+  const card = document.getElementById("card");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    email.classList.remove("invalid");
+    phone.classList.remove("invalid");
+    error.textContent = "";
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    const phoneOk = phone.value.replace(/\D/g, "").length >= 7;
+
+    if (!emailOk) {
+      email.classList.add("invalid");
+      error.textContent = "Enter a valid email address.";
+      email.focus();
+      return;
+    }
+    if (!phoneOk) {
+      phone.classList.add("invalid");
+      error.textContent = "Enter a valid phone number.";
+      phone.focus();
+      return;
+    }
+
+    card.classList.add("done");
+  });
+</script>
+</body>
+</html>
+ 
